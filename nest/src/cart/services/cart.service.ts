@@ -19,6 +19,7 @@ export class CartService {
       items: [],
     };
 
+    // @ts-ignore
     this.userCarts[ userId ] = userCart;
 
     return userCart;
@@ -30,7 +31,7 @@ export class CartService {
     if (userCart) {
       return userCart;
     }
-
+    // @ts-ignore
     return this.createByUserId(userId);
   }
 

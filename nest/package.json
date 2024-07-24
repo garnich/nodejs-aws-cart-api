@@ -18,7 +18,8 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "build-lambda": "nest build --webpack --webpackPath webpack.config.js"
   },
   "dependencies": {
     "@nestjs/common": "^10.0.3",
@@ -27,6 +28,7 @@
     "@nestjs/jwt": "^10.1.0",
     "@nestjs/passport": "^10.0.0",
     "@nestjs/platform-express": "^10.0.3",
+    "@vendia/serverless-express": "^4.12.6",
     "helmet": "^7.0.0",
     "passport": "^0.6.0",
     "passport-http": "^0.3.0",
