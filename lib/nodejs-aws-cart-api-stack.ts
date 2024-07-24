@@ -1,16 +1,26 @@
-import * as cdk from 'aws-cdk-lib';
+import { Stack, StackProps } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
-// import * as sqs from 'aws-cdk-lib/aws-sqs';
 
-export class NodejsAwsCartApiStack extends cdk.Stack {
-  constructor(scope: Construct, id: string, props?: cdk.StackProps) {
+import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs';
+import { Runtime } from 'aws-cdk-lib/aws-lambda';
+import { LambdaRestApi } from 'aws-cdk-lib/aws-apigateway';
+
+import 'dotenv/config';
+
+export class NodejsAwsCartApiStack extends Stack {
+  constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
-    // The code that defines your stack goes here
+    const cardApiLambda = new NodejsFunction(this, 'cardApiFunction', {
+      runtime: Runtime.NODEJS_20_X,
+      entry: 'nest/dist/main.js',
+      handler: 'cardApiFunction',
+      environment: {},
+    });
 
-    // example resource
-    // const queue = new sqs.Queue(this, 'NodejsAwsCartApiQueue', {
-    //   visibilityTimeout: cdk.Duration.seconds(300)
-    // });
+    new LambdaRestApi(this, 'cardAPIGateway', {
+      restApiName: 'CardAPIGateway',
+      handler: cardApiLambda,
+    });
   }
 }
