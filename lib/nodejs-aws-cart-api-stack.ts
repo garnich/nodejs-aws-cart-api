@@ -1,4 +1,4 @@
-import { Stack, StackProps } from 'aws-cdk-lib';
+import { Stack, StackProps, Duration } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 
 import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs';
@@ -11,11 +11,12 @@ export class NodejsAwsCartApiStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
-    const cardApiLambda = new NodejsFunction(this, 'cardApiFunction', {
+    const cardApiLambda = new NodejsFunction(this, 'card-api-lambda', {
       runtime: Runtime.NODEJS_20_X,
       entry: 'nest/dist/main.js',
-      handler: 'cardApiFunction',
       environment: {},
+      functionName: 'cardApiLambda',
+      timeout: Duration.seconds(10),
     });
 
     new LambdaRestApi(this, 'cardAPIGateway', {
