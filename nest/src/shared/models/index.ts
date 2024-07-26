@@ -1,7 +1,9 @@
+import { HttpStatus } from '@nestjs/common';
 import { Request } from 'express';
 
 import { User } from '../../users';
 
 export interface AppRequest extends Request {
-  user?: User
+  status: HttpStatus;
+  user?: User;
 }
